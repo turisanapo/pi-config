@@ -1,0 +1,27 @@
+# Deny everything by default, then allow only configuration that is safe to
+# publish. A new file is untracked until it is explicitly listed here, so a
+# credential dropped into this directory cannot be committed by accident.
+*
+
+!.gitignore
+!README.md
+
+!agent/
+!agent/AGENTS.md
+!agent/settings.json
+
+!agent/agents/
+!agent/agents/*.md
+
+!agent/prompts/
+!agent/prompts/*.md
+
+!agent/skills/
+!agent/skills/**/
+!agent/skills/**/*.md
+!agent/skills/**/*.sh
+!agent/skills/**/LICENSE
+
+!agent/extensions/
+!agent/extensions/**/
+!agent/extensions/**/*.ts

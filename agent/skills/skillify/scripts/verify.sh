@@ -76,9 +76,12 @@ print(f"frontmatter: ok (name={name}, description={len(description)} chars)")
 PY
 
 echo "checking discovery..."
-if pi -p --no-session --no-context-files \
+# Capture rather than pipe: grep -q exits on the first match, and the resulting
+# SIGPIPE would fail the pipeline under `set -o pipefail`.
+listed=$(pi -p --no-session --no-context-files \
 	"List the exact names of every skill available to you, one per line, then stop. Do not use any tools." \
-	2>/dev/null | grep -qx "$name"; then
+	2>/dev/null)
+if grep -qx "$name" <<<"$listed"; then
 	echo "discovery: ok ($name is listed)"
 	echo "PASS"
 else

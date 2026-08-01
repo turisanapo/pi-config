@@ -5,6 +5,8 @@
   "theme": "dark",
   "packages": [
     "npm:pi-web-access",
-    "npm:@mazli/pi-ask-user-question"
-  ]
+    "npm:@mazli/pi-ask-user-question",
+    "npm:@llblab/pi-telegram"
+  ],
+  "defaultThinkingLevel": "high"
 }

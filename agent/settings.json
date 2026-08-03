@@ -6,7 +6,8 @@
   "packages": [
     "npm:pi-web-access",
     "npm:@mazli/pi-ask-user-question",
-    "npm:@llblab/pi-telegram"
+    "npm:@llblab/pi-telegram",
+    "git:github.com/DietrichGebert/ponytail"
   ],
   "defaultThinkingLevel": "high"
 }

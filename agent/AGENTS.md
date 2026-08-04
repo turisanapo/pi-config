@@ -74,11 +74,17 @@ What follows from them:
 - Keep IO-near adapters as thin shells with no decision logic, so core behavior is testable without UI, network, filesystem, or devices.
 - Modules expose only what callers need; representation, IO details, and invariant enforcement stay hidden.
 - No import cycles.
+- Keep components modular and concerns clearly separated.
+- Decide for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
+- Do not preserve backward compatibility. Remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations.
 
 ## Writing Code
 - Write the test first for the observable behavior; it must fail for a plausible wrong implementation. Then write only enough production code to pass it.
 - Work in small, reviewable increments. Do not mix behavior change with refactoring in the same step.
-- Implement the simplest solution that works. Omit steps that aren't needed — don't compute, read, or store values that nothing depends on (e.g. data fetched only for a cosmetic touch). Prefer simple correct approaches over premature optimization when the input is small.
+- Grow the system in layers. Start from the smallest version that works end to end, and add each capability on top of a product that already works. Never trade a working product for unfinished complexity.
+- Prefer an established, well-maintained library when it reduces overall complexity or improves reliability. Do not reimplement common functionality without a clear reason.
+- Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
+- Implement the simplest solution that fully meets the current requirements — no speculative abstraction, configuration, or indirection. Omit steps that aren't needed — don't compute, read, or store values that nothing depends on (e.g. data fetched only for a cosmetic touch). Prefer simple correct approaches over premature optimization when the input is small.
 - Simplicity is a property of the whole change, not of the parts taken one at a time. Every type, layer, and indirection can be defensible on its own while the result is still more than a reader can hold in one sitting. So account for what the change adds — parts, not lines — and let each one earn its place through a requirement, a boundary the design calls for, or a defect a test caught; symmetry, thoroughness, and a future nobody is building yet are not reasons. Before reporting work done, describe the same change with one part fewer: when that version still meets the requirements, it is the one to ship.
 - Names state intent. Rename when a better name clarifies a responsibility.
 - Keep comments minimal — code should be self-explanatory. Comment only to explain *why* (non-obvious constraints, rationale), not *what* the code does. If code needs a comment to be understood, prefer rewriting it to be clearer — better const/function names beat comments. Aim for the smallest changeset that solves the problem.

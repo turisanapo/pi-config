@@ -68,45 +68,31 @@ Apply to every non-trivial change. These constrain design, not formatting.
 - **Interface Segregation** — narrow, client-specific interfaces. Clients must not depend on members they don't call.
 - **Dependency Inversion** — high-level policy must not depend on low-level detail. Source dependencies point from IO-near code (UI, HTTP, filesystem, database, SDKs, clock, randomness, env) inward toward IO-far policy, and the abstraction is owned by the high-level side. This governs the set of implementations as well as their behavior: the abstraction owns the registry variants enter and answers what is available, so policy asks it what exists rather than naming variants itself, and the dependency runs from variant to abstraction only. A module that assembles the system may reference a variant in order to link it, never in order to know it. Self-announcement trades discoverability and startup-time error reporting for additivity; a central enumeration is a deliberate exception, taken when the set of variants is closed, and stated as such.
 
-What follows from them:
-- Do not leak persistence shapes, DTOs, framework types, or transport formats across a boundary. Convert at the boundary.
-- Adding a variant must not touch a config schema, a route table, a shared switch, or a validation list. If it does, the seam is in the wrong place. Before calling the work done, name what an unrelated variant would have to edit: anything that reasons about variants is a defect in the seam.
-- Keep IO-near adapters as thin shells with no decision logic, so core behavior is testable without UI, network, filesystem, or devices.
-- Modules expose only what callers need; representation, IO details, and invariant enforcement stay hidden.
-- No import cycles.
-- Keep components modular and concerns clearly separated.
-- Decide for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
-- Do not preserve backward compatibility. Remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations.
-
 ## Writing Code
-- Write the test first for the observable behavior; it must fail for a plausible wrong implementation. Then write only enough production code to pass it.
-- Work in small, reviewable increments. Do not mix behavior change with refactoring in the same step.
-- Grow the system in layers. Start from the smallest version that works end to end, and add each capability on top of a product that already works. Never trade a working product for unfinished complexity.
-- Prefer an established, well-maintained library when it reduces overall complexity or improves reliability. Do not reimplement common functionality without a clear reason.
+- Do not preserve backward compatibility. Remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations.
+- Choose the simplest implementation that fully meets the current requirements. Avoid speculative abstractions, configuration, and indirection. Omit steps that aren't needed: do not compute, read, or store values that nothing depends on. Prefer simple, correct approaches over premature optimization when the input is small.
+- Grow the system in layers. Start from the smallest version that works end to end, and add each new capability on top of a product that already works. Never trade a working product for unfinished complexity.
+- Keep components modular and concerns clearly separated.
+- Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability. Do not reimplement common functionality without a clear reason.
 - Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
-- Implement the simplest solution that fully meets the current requirements — no speculative abstraction, configuration, or indirection. Omit steps that aren't needed — don't compute, read, or store values that nothing depends on (e.g. data fetched only for a cosmetic touch). Prefer simple correct approaches over premature optimization when the input is small.
-- Simplicity is a property of the whole change, not of the parts taken one at a time. Every type, layer, and indirection can be defensible on its own while the result is still more than a reader can hold in one sitting. So account for what the change adds — parts, not lines — and let each one earn its place through a requirement, a boundary the design calls for, or a defect a test caught; symmetry, thoroughness, and a future nobody is building yet are not reasons. Before reporting work done, describe the same change with one part fewer: when that version still meets the requirements, it is the one to ship.
+- Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
+- Always use the /solid skill before starting to write code.
+- Write the test first for the observable behavior. It must fail for a plausible wrong implementation. Then write only enough production code to pass it.
+- Work in small, reviewable increments. Do not mix behavior change with refactoring in the same step.
 - Names state intent. Rename when a better name clarifies a responsibility.
-- Keep comments minimal — code should be self-explanatory. Comment only to explain *why* (non-obvious constraints, rationale), not *what* the code does. If code needs a comment to be understood, prefer rewriting it to be clearer — better const/function names beat comments. Aim for the smallest changeset that solves the problem.
+- Keep comments minimal. Code should be self-explanatory. Comment only to explain why, not what. If code needs a comment to be understood, rewrite it to be clearer instead. Aim for the smallest changeset that solves the problem.
 - Remove duplication of knowledge, not duplication of text. Coincidentally similar code with different reasons to change stays separate.
 - Keep functions small enough to hold in one's head and files small enough to review in one sitting. When a function accumulates branches or a file outgrows a review-sized unit, split along responsibility lines, not by line count.
-- Don't export symbols that are only used internally.
-- Let TypeScript infer types where it can. Drop explicit return types and annotations when inference yields the same type.
+- Do not export symbols that are only used internally.
+- Let the language's type inference do the work where it can. Omit explicit type annotations when inference yields the same type.
+- Do not leak persistence shapes, DTOs, framework types, or transport formats across a boundary. Convert at the boundary.
+- Adding a variant must not touch a config schema, a route table, a shared switch, or a validation list. If it does, the seam is in the wrong place. Before calling the work done, name what an unrelated variant would have to edit.
+- Keep IO-near adapters as thin shells with no decision logic, so core behavior is testable without UI, network, filesystem, or devices.
+- Modules expose only what callers need. Representation, IO details, and invariant enforcement stay hidden.
+- Do not create import cycles.
 
 ## Verification
 Nothing is done until it has been reviewed and checked. Review first, then run the checks.
-
-### Review the diff
-Review the diff and the modules it touches, in this order:
-1. **Boundary separation** — can core behavior be tested without UI, IO, or framework?
-2. **Dependency direction** — anything high level depending on IO-near detail? Cycles, framework or data-shape leakage?
-3. **Responsibility** — any module or function with more than one reason to change?
-4. **Interfaces and substitutability** — interface members unused by some client? Any implementation that cannot stand in for its abstraction?
-5. **Encapsulation** — invariants enforceable only by convention? Anything exported that no outside caller needs?
-6. **Local quality** — names, control flow, duplication, error paths, edge cases, dead code, stale comments.
-7. **Tests** — do they pin behavior rather than implementation? Would they fail if a condition, boundary, or return value were wrong?
-
-Name each violation with file and reason, then fix it or report it if the fix is out of scope.
 
 ### Run the checks
 Before reporting work done — and before any commit — run format, lint (including complexity and duplication rules), type check, then tests, and fix what they report. Never report completion with a known failing check or a known unaddressed violation. If a check cannot run in this environment, say so instead of skipping it silently.

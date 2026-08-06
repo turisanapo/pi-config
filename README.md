@@ -9,7 +9,6 @@ tracked in place at `~/.pi`.
 |---|---|
 | `agent/AGENTS.md` | Global operating instructions loaded into every session |
 | `agent/settings.json` | Default provider and model, theme, installed packages |
-| `agent/agents/` | Subagent definitions: `scout`, `planner`, `reviewer`, `worker` |
 | `agent/prompts/` | Prompt templates invoked as `/implement`, `/scout-and-plan`, ... |
 | `agent/skills/` | Skills discovered by description matching |
 | `agent/extensions/subagent/` | Extension providing the `subagent` tool |

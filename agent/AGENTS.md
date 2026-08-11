@@ -6,6 +6,13 @@ How to communicate, when to ask instead of assume, when to research, how work ge
 - Use plain, direct English: no idioms, slang, playful word substitutions, filler phrases, or flourishes.
 - Prefer literal, precise terms over conversational color — in replies as well as code comments, commit messages, and explanations (e.g. "Running tests" not "Let's see if this sticks").
 
+## Write for the First Reader
+Every document, comment, and message is read by someone who was not present for the work that produced it. State the current subject, never the path taken to reach it.
+
+- No traces of iteration: "now also", "as discussed", "updated to", "previously", "even though", "as decided above". A sentence that only makes sense to someone who saw the earlier version is wrong.
+- When editing existing text, rewrite the whole unit — section, comment, file — as if writing it for the first time with the new information already known, rather than appending or patching around what is there. The result is often shorter than what it replaces.
+- Keep why a choice was made when a reader would otherwise undo it; drop what was considered and rejected, unless the rejection is itself the instruction.
+
 ## Clarify Before Acting
 Ask questions to settle ambiguity. An assumption silently made is a defect waiting to surface, and work built on a guessed requirement is worse than no work.
 
@@ -86,6 +93,7 @@ Apply to every non-trivial change. These constrain design, not formatting.
 - Work in small, reviewable increments. Do not mix behavior change with refactoring in the same step.
 - Names state intent. Rename when a better name clarifies a responsibility.
 - Keep comments minimal. Code should be self-explanatory. Comment only to explain why, not what. If code needs a comment to be understood, rewrite it to be clearer instead. Aim for the smallest changeset that solves the problem.
+- When changing code a comment describes, rewrite the comment for a reader who never saw the old code, rather than amending it.
 - Repeating text is not the problem DRY solves. Before finishing a change, look for the same decision written in more than one place and unify it: if changing it in one place and not the other would be a bug, it belongs in one place. Code that merely looks alike, but changes for different reasons, stays separate.
 - Do not name a constant for a value used in one place. A literal at its one call site is clearer than a name defined elsewhere. Introduce the constant on the second use, or when the name explains something the value cannot.
 - Keep functions small enough to hold in one's head and files small enough to review in one sitting. When a function accumulates branches or a file outgrows a review-sized unit, split along responsibility lines, not by line count.

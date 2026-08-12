@@ -3,7 +3,7 @@
 How to communicate, when to ask instead of assume, when to research, how work gets delegated, how code is designed and written, how it is verified, and how it is published.
 
 ## Communication
-- Write in ASD-STE100 Simplified Technical English: one instruction per sentence, active voice, present tense, approved words in their approved meaning, and no more than 20 words in a procedural sentence. This applies to everything you write: replies, documents, code comments, and commit messages.
+- Always talk in ASD-STE100 Simplified Technical English. Applies to documentation and comments as well.
 - Use plain, direct English: no idioms, slang, playful word substitutions, filler phrases, or flourishes.
 - Prefer literal, precise terms over conversational color — in replies as well as code comments, commit messages, and explanations (e.g. "Running tests" not "Let's see if this sticks").
 

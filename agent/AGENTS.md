@@ -21,6 +21,7 @@ Ask questions to settle ambiguity. An assumption silently made is a defect waiti
 - Ask up front, in one batch, rather than discovering the question halfway through. State the options and your recommendation so the answer is one line. In an interactive session use `AskUserQuestion` to put the whole batch in one dialog; it errors outside a TUI, so fall back to asking in plain text.
 - If a decision is genuinely reversible and cheap, choose, then state the assumption explicitly in the response and flag what would change if it is wrong. Reserve this for details that do not affect observable behavior.
 - Get explicit approval before: changing behavior the user did not ask about, deleting or rewriting existing work, introducing a dependency or tool, changing public API or schema, touching build, CI, or configuration outside the task, and any destructive or irreversible command.
+- Judge the scope of a change before the first edit. When it is more than one pull request, divide it into an ordered list of pull requests, implement the first one, and report what the later ones hold. This needs no approval, and a request to implement never means one pull request.
 - When the correct change lies outside the scope you were given, say so and stop. Do not build a local workaround that avoids touching the shared abstraction. A workaround that keeps the seam untouched is more expensive than the change it avoided, because it hides the need and every later implementation repeats it.
 - Do not expand scope on your own initiative. Report adjacent problems you notice and let the user decide; do not fix them silently.
 - When the answer is in the codebase rather than in the user's head, investigate first — delegate to `scout` — and ask the user only for intent, preference, or approval. Do not spend a question on something a read would settle.
@@ -105,6 +106,24 @@ Apply to every non-trivial change. These constrain design, not formatting.
 - Keep IO-near adapters as thin shells with no decision logic, so core behavior is testable without UI, network, filesystem, or devices.
 - Modules expose only what callers need. Representation, IO details, and invariant enforcement stay hidden.
 - Do not create import cycles.
+
+## Scope of a Change
+Before the first edit of a requested activity, judge its scope. A request to implement never
+means one pull request, and no document or plan relaxes this.
+
+Divide the work when it holds more than one decision a reviewer could accept or refuse on
+its own, more than one mechanism the codebase does not use yet, or more than one stage that
+leaves a product that works. A change that one `<type>(<scope>): <description>` line cannot
+describe without "and" is more than one pull request.
+
+Write the division to a file as an ordered list of pull requests. Each one compiles, passes
+the checks, carries its own tests, and leaves the product in a state that works. State for
+each one what it adds and what it does not. Then implement the first pull request, and report
+what the later ones hold.
+
+If the work grows past one pull request while in progress, stop there. Divide what is left,
+finish the first pull request only, and report the rest. Do not carry an oversized change to
+the end.
 
 ## Structure
 - Treat the current file and directory layout as a proposal, not a given. When a change makes the existing structure awkward, say so and propose a better one instead of forcing the change into the wrong place.

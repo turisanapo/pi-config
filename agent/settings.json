@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.3",
   "defaultProvider": "amazon-bedrock",
-  "defaultModel": "us.anthropic.claude-opus-5",
+  "defaultModel": "global.openai.gpt-5.6-sol",
   "theme": "dark",
   "packages": [
     "npm:pi-web-access",

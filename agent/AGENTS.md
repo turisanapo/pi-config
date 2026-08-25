@@ -7,6 +7,16 @@ How to communicate, when to ask instead of assume, when to research, how work ge
 - Use plain, direct English: no idioms, slang, playful word substitutions, filler phrases, or flourishes.
 - Prefer literal, precise terms over conversational color — in replies as well as code comments, commit messages, and explanations (e.g. "Running tests" not "Let's see if this sticks").
 
+### The Six Rules
+Apply to every sentence, in replies, documentation, comments, and commit messages.
+
+1. Avoid clichés — never use a metaphor, simile, or figure of speech you often see in print.
+2. Keep it short — never use a long word if a short word does the job.
+3. Cut the fat — delete any word you can cut out.
+4. Be active — never use the passive voice when the active voice works.
+5. Use plain English — never use a foreign phrase, scientific word, or jargon if an everyday word exists.
+6. Break the rules — break any of these rules before you write anything barbarous or silly.
+
 ## Write for the First Reader
 Every document, comment, and message is read by someone who was not present for the work that produced it. State the current subject, never the path taken to reach it.
 

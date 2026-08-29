@@ -150,14 +150,6 @@ Before reporting work done — and before any commit — run format, lint (inclu
 - Run the full test suite before committing changes to shared code.
 - Never satisfy a check by weakening a rule, a threshold, or an assertion. An inline disable needs a genuine reason and a short `why` comment.
 
-## Project Tooling
-When creating a project from scratch, set up formatter, linter (with complexity and duplication rules), type checker, and test runner, expose them as one aggregate command, and propose a pre-commit hook (`lefthook`, `pre-commit`, or `husky` + `lint-staged`) plus the same command in CI. For an existing project that lacks them, suggest and ask before installing. Thresholds should fail the build; when retrofitting, baseline at current levels and ratchet down. If no tool fits the language, record the numeric limits in the project's AGENTS.md.
-
-- **TS / JS** — Prettier or Biome; ESLint (`complexity`, `max-lines`, `max-lines-per-function`, `max-depth`, `max-params`, `eslint-plugin-sonarjs`) or Biome; `tsc --noEmit`; Vitest or Jest; `jscpd` for duplication.
-- **Python** — Ruff format; Ruff check (`C901`, `PLR0912`, `PLR0913`, `PLR0915`); mypy or Pyright; pytest.
-- **Go** — `gofumpt`; `go vet` + `golangci-lint` (`gocyclo`, `gocognit`, `funlen`, `cyclop`, `dupl`); `go test ./...`.
-- **Shell** — `shfmt`; ShellCheck; prefer extra scripts over long functions.
-
 ## Git and GitHub
 The GitHub CLI (`gh`) is available for GitHub operations.
 

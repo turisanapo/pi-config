@@ -9,5 +9,5 @@
     "npm:@llblab/pi-telegram",
     "git:github.com/DietrichGebert/ponytail"
   ],
-  "defaultThinkingLevel": "medium"
+  "defaultThinkingLevel": "high"
 }

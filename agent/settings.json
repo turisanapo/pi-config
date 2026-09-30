@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.1",
   "defaultProvider": "amazon-bedrock",
   "defaultModel": "us.anthropic.claude-opus-5-5",
-  "theme": "dark",
+  "theme": "light/dark",
   "packages": [
     "npm:pi-web-access",
     "npm:@mazli/pi-ask-user-question",

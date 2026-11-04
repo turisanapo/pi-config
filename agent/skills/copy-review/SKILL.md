@@ -48,8 +48,6 @@ No target means the local uncommitted changes, untracked files included.
    code comments, docstrings, and test names. Test assertions that repeat a production
    string are mirrors, not new text.
 3. For each piece, read it as its reader would. Flag what a fluent writer would not write.
-   Read [references/patterns.md](references/patterns.md) for the usual causes and approved
-   rewrites.
 4. Write the suggestion. Rewrite the whole sentence or paragraph when the structure is the
    problem. When strings belong together, such as a doc rule and the error that enforces it,
    give them the same wording.
